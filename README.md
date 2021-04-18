@@ -16,6 +16,7 @@ The functioning of the website is as follow:
 ![image](https://user-images.githubusercontent.com/79860911/115144645-6b797980-a06b-11eb-83ad-8354b12da3f8.png)
 ![image](https://user-images.githubusercontent.com/79860911/115144657-792eff00-a06b-11eb-96fb-8bece84430d8.png)
 ![image](https://user-images.githubusercontent.com/79860911/115144666-81873a00-a06b-11eb-98ef-7a387cb8e383.png)
+   This snapshot shows the data stored in local storage
 ![image](https://user-images.githubusercontent.com/79860911/115144795-3faac380-a06c-11eb-8592-b82831c92f8f.png)
 
 2) The stored data would retrieved in the listing item page as below:
