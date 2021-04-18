@@ -22,9 +22,7 @@ class Listing extends Component {
             this.setState({CardList:cardList})
 
         }
-        else {
-            document.getElementById("result").innerHTML = "Listing items  is empty! Add the details of mobile."
-        }
+    
     }
 
     render() {
