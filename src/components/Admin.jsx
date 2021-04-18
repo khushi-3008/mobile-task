@@ -1,217 +1,167 @@
-import React from 'react';
+import React, { Component, useState } from 'react';
 import Navbar from './Navbar';
 import './Admin.css'
 
-function Admin() {
-    return (
-        <>
-            <Navbar />
-            <div class="container">
-                <header class="header">
-                    <h1 id="title" class="text-center">Add your mobile details</h1>
-                    
-                </header>
-                <form id="survey-form">
-                    <div class="form-group">
-                        <label id="name-label" for="name">Name</label>
-                        <input
-                            type="text"
-                            name="name"
-                            id="name"
-                            class="form-control"
-                            placeholder="Enter your name"
-                            required
-                        />
-                    </div>
-                    <div class="form-group">
-                        <label id="email-label" for="email">Email</label>
-                        <input
-                            type="email"
-                            name="email"
-                            id="email"
-                            class="form-control"
-                            placeholder="Enter your Email"
-                            required
-                        />
-                    </div>
-                    <div class="form-group">
-                        <label id="number-label" for="number">Age<span class="clue">(optional)</span></label>
-                        <input
-                            type="number"
-                            name="age"
-                            id="number"
-                            min="10"
-                            max="99"
-                            class="form-control"
-                            placeholder="Age"
-                        />
-                    </div>
+class Admin extends Component {
+    documentData;
+    constructor(props) {
+        super(props);
+        this.handleChange = this.handleChange.bind(this);
+        this.handleFormSubmit = this.handleFormSubmit.bind(this);
+        this.state = {
+            name: '',
+            brand: '',
+            price: '',
+            color: '',
+            ram: '',
+            rom: ''
+        }
+    }
 
-                    <div class="form-group">
-                        <p>Which option best describes your current role?</p>
-                        <select id="dropdown" name="role" class="form-control" required>
-                            <option disabled selected value>Select current role</option>
-                            <option value="student">Student</option>
-                            <option value="job">Full Time Job</option>
-                            <option value="learner">Full Time Learner</option>
-                            <option value="preferNo">Prefer not to say</option>
-                            <option value="other">Other</option>
-                        </select>
-                    </div>
+    handleChange = (e) => {
+        this.setState({ [e.target.name]: e.target.value });
+    }
+    // on form submit...
 
-                    <div class="form-group">
-                        <p>Would you recommend freeCodeCamp to a friend?</p>
-                        <label>
+    handleFormSubmit(e) {
+        var c=0;
+        if (localStorage.getItem('key')) {
+             c = localStorage.getItem('key');
+            c++;
+            localStorage.setItem('key', JSON.stringify(c));
+
+        } else {
+            localStorage.setItem('key', JSON.stringify(0));
+        }
+
+        e.preventDefault();
+        localStorage.setItem('document'+c , JSON.stringify(this.state));
+        this.setState({
+            name: '',
+            brand: '',
+            price: '',
+            color: '',
+            ram: '',
+            rom: ''
+        });
+        alert("Form submitted successfully")
+    }
+
+    // function download(){
+    //     var blob = new Blob([mobileName,"\n",brand,"\n",Price,"\n",Color,"\n",Ram,"\n",Rom], {type: "json"});
+    //     var url = window.URL.createObjectURL(blob);
+    //     var a = document.createElement("a");
+    //     a.href = url;
+    //     a.download = "test.json";
+    //     a.click();
+    //   }
+
+
+
+    render() {
+
+        return (
+            <>
+                <Navbar />
+                <div className="container" >
+                    <header className="header">
+                        <h1 id="title" className="text-center">Add your mobile details</h1>
+
+                    </header>
+                    <form id="survey-form" style={{ marginLeft: '20rem', marginRight: '20rem' }} onSubmit={this.handleFormSubmit}>
+                        <div className="form-group">
+                            <label id="name-label" for="name">Mobile Name</label>
                             <input
-                                name="user-recommend"
-                                value="definitely"
-                                type="radio"
-                                class="input-radio"
-                                checked
-                            />Definitely</label>
-                        <label>
+                                type="text"
+                                name="name"
+                                id="name"
+                                className="form-control"
+                                placeholder="Enter Mobile name"
+                                value={this.state.name}
+                                onChange={this.handleChange}
+                                required
+                            />
+                        </div>
+                        <div className="form-group">
+                            <label id="brand-label" for="brand">Brand</label>
                             <input
-                                name="user-recommend"
-                                value="maybe"
-                                type="radio"
-                                class="input-radio"
-                            />Maybe</label>
+                                type="text"
+                                name="brand"
+                                id="brand"
+                                className="form-control"
+                                placeholder="Enter Brand of mobile"
+                                value={this.state.brand}
+                                onChange={this.handleChange}
+                                required
+                            />
+                        </div>
 
-                        <label>
-                         <input
-                                name="user-recommend"
-                                value="not-sure"
-                                type="radio"
-                                class="input-radio"
-                            />Not sure</label>
-                    </div>
-
-                    <div class="form-group">
-                        <p>
-                            What is your favorite feature of freeCodeCamp?
-                        </p>
-                        <select id="most-like" name="mostLike" class="form-control" required>
-                            <option disabled selected value>Select an option</option>
-                            <option value="challenges">Challenges</option>
-                            <option value="projects">Projects</option>
-                            <option value="community">Community</option>
-                            <option value="openSource">Open Source</option>
-                        </select>
-                    </div>
-
-                    <div class="form-group">
-                        <p>
-                            What would you like to see improved?
-                            <span class="clue">(Check all that apply)</span>
-                        </p>
-
-                        <label>
-                        <input
-                            name="prefer"
-                            value="front-end-projects"
-                            type="checkbox"
-                            class="input-checkbox"    
-                        />Front-end Projects</label>
-
-                        <label>
+                        <div className="form-group">
+                            <label id="price-label" for="price">Price</label>
                             <input
-                                name="prefer"
-                                value="back-end-projects"
-                                type="checkbox"
-                                class="input-checkbox"
-                            />Back-end Projects</label>
-                        <label>
+                                type="number"
+                                name="price"
+                                id="price"
+                                className="form-control"
+                                placeholder="Enter price"
+                                value={this.state.price}
+                                onChange={this.handleChange}
+                                required
+                            />
+                        </div>
+
+                        <div className="form-group">
+                            <label id="color-label" for="color">Color</label>
                             <input
-                                name="prefer"
-                                value="data-visualization"
-                                type="checkbox"
-                                class="input-checkbox"
-                            />Data Visualization</label>
-                            
-                        <label>
+                                type="text"
+                                name="color"
+                                id="color"
+                                className="form-control"
+                                placeholder="Enter color"
+                                value={this.state.color}
+                                onChange={this.handleChange}
+                                required
+                            />
+                        </div>
+
+                        <div className="form-group">
+                            <label id="ram-label" for="ram">RAM</label>
                             <input
-                                name="prefer"
-                                value="challenges"
-                                type="checkbox"
-                                class="input-checkbox"
-                            />Challenges</label>
-                        
-                        <label>
+                                type="number"
+                                name="ram"
+                                id="ram"
+                                className="form-control"
+                                placeholder="Enter ram"
+                                value={this.state.ram}
+                                onChange={this.handleChange}
+                                required
+                            />
+                        </div>
+
+                        <div className="form-group">
+                            <label id="rom-label" for="rom">ROM</label>
                             <input
-                                name="prefer"
-                                value="open-source-community"
-                                type="checkbox"
-                                class="input-checkbox"
-                            />Open Source Community</label>
-                        
-                        <label>
-                         <input
-                                name="prefer"
-                                value="gitter-help-rooms"
-                                type="checkbox"
-                                class="input-checkbox"
-                            />Gitter help rooms</label>
-                        
-                        <label>
-                        <input
-                                name="prefer"
-                                value="videos"
-                                type="checkbox"
-                                class="input-checkbox"
-                            />Videos</label>
+                                type="number"
+                                name="rom"
+                                id="rom"
+                                className="form-control"
+                                placeholder="Enter rom"
+                                value={this.state.rom}
+                                onChange={this.handleChange}
+                                required
+                            />
+                        </div>
 
-                        <label>
-                            <input
-                                name="prefer"
-                                value="city-meetups"
-                                type="checkbox"
-                                class="input-checkbox"
-                            />City Meetups</label>
-
-                        <label>
-                        <input
-                                name="prefer"
-                                value="wiki"
-                                type="checkbox"
-                                class="input-checkbox"
-                            />Wiki</label>
-                        <label>
-                        <input
-                                name="prefer"
-                                value="forum"
-                                type="checkbox"
-                                class="input-checkbox"
-                            />Forum</label>
-
-                        <label>
-                        <input
-                                name="prefer"
-                                value="additional-courses"
-                                type="checkbox"
-                                class="input-checkbox"
-                            />Additional Courses</label>
-                        
-                    </div>
-
-                    <div class="form-group">
-                        <p>Any comments or suggestions?</p>
-                        <textarea
-                            id="comments"
-                            class="input-textarea"
-                            name="comment"
-                            placeholder="Enter your comment here..."
-                        ></textarea>
-                    </div>
-
-                    <div class="form-group">
-                        <button type="submit" id="submit" class="submit-button">
-                            Submit
+                        <div className="form-group">
+                            <button type="submit" id="submit" className="submit-button">
+                                Submit
                     </button>
-                    </div>
-                </form>
-            </div>
-        </>
-    )
+                        </div>
+                    </form>
+                </div>
+            </>
+        )
+    }
 }
 
 export default Admin;

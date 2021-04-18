@@ -84,7 +84,7 @@ button {
   margin: 3.125rem auto 0 auto;
 }
 
-@media (min-width: 576px) {
+/* @media (min-width: 576px) {
   .container {
     max-width: 540px;
   }
@@ -94,7 +94,7 @@ button {
   .container {
     max-width: 720px;
   }
-}
+} */
 
 .header {
   padding: 0 0.625rem;

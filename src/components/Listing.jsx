@@ -1,18 +1,42 @@
-import React from 'react';
+import React, { Component } from 'react';
 import Navbar from './Navbar';
-import './Navbar.css'
+import Card from './LCard';
 
+class Listing extends Component {
 
-function Listing() {
-    return (
-        <div>
-            <Navbar/>
-            <section class="et-slide" id="tab-other">
-                <h1>Listing</h1>
-                <h3>something about Listing</h3>
-            </section>
-        </div>
-    )
+    documentData;
+    constructor(props){
+        super(props);
+        var c;
+
+        if (localStorage.getItem('key')) {
+            c = localStorage.getItem('key');
+            console.log(c);
+            let cardList = [];
+            for (let i = 0; i <= c; i++) {
+                    this.documentData = JSON.parse(localStorage.getItem('document' + c));
+                    console.log(this.documentData.name);
+                    console.log(i);
+                cardList.push(<Card name={this.documentData.name} brand={this.documentData.brand} />);
+            }
+            this.setState({CardList:cardList})
+
+        }
+        else {
+            document.getElementById("result").innerHTML = "Listing items  is empty! Add the details of mobile."
+        }
+    }
+
+    render() {
+        return (
+            <div >
+                <Navbar />
+                <div style={{margin:"3rem"}}>
+                <Card name={this.documentData.name} brand={this.documentData.brand} price={this.documentData.price} color={this.documentData.color} ram={this.documentData.ram} rom={this.documentData.rom} />
+                </div>
+            </div>
+        )
+    }
 }
 
 export default Listing;

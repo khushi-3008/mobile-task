@@ -1,0 +1,13 @@
+.wrapper{
+}
+
+.wrapper .title{
+font-weight: bold;
+  color: white;
+  padding-top: 0;
+  padding-left: 0;
+  letter-spacing: 0.025em;
+  font-size: 1.5em;
+  line-height: 1.25;
+  text-align: center;
+}
